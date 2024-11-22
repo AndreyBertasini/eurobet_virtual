@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8facff00-3fef-4c23-9df0-e780ba34322d" name="Changes" comment="Add initial project setup and VirtualSportsCollector class&#10;&#10;This commit includes the initial setup files for the project, such as IntelliJ IDEA configuration files and a basic &quot;main.py&quot; entry point. It also introduces the &quot;VirtualSportsCollector&quot; class within an IPython notebook that collects and processes virtual sports match data from the Eurobet API. The collector saves the data into CSV and Excel formats, ensuring no duplicates and maintaining a structured format.">
+    <list default="true" id="8facff00-3fef-4c23-9df0-e780ba34322d" name="Changes" comment="Add virtual match data CSV files&#10;&#10;These files contain detailed results and statistics for virtual matches on 21-11-2024. The data includes scores, odds, and outcomes for various games, providing essential information for analysis.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/analitica.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/analitica.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/virtual_odds_detail.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/virtual_odds_detail.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/virtual_matches_data .csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/virtual_matches_data 2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/virtual_matches_data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_matches_data.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,42 +28,42 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "AndreyBertasini"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AndreyBertasini&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/AndreyBertasini/eurobet_virtual.git",
-    "accountId": "70336019-88bb-4d1a-9dd0-5159f1f0bf5e"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AndreyBertasini/eurobet_virtual.git&quot;,
+    &quot;accountId&quot;: &quot;70336019-88bb-4d1a-9dd0-5159f1f0bf5e&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2pAwIB0xbrXAR6tI3lSUfnaWydd" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -75,7 +80,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1732222105286</updated>
-      <workItem from="1732222106371" duration="3272000" />
+      <workItem from="1732222106371" duration="6582000" />
+      <workItem from="1732228744202" duration="2586000" />
+      <workItem from="1732263890481" duration="1461000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial project setup and VirtualSportsCollector class&#10;&#10;This commit includes the initial setup files for the project, such as IntelliJ IDEA configuration files and a basic &quot;main.py&quot; entry point. It also introduces the &quot;VirtualSportsCollector&quot; class within an IPython notebook that collects and processes virtual sports match data from the Eurobet API. The collector saves the data into CSV and Excel formats, ensuring no duplicates and maintaining a structured format.">
       <option name="closed" value="true" />
@@ -85,7 +92,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732222307876</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add virtual match data CSV files&#10;&#10;These files contain detailed results and statistics for virtual matches on 21-11-2024. The data includes scores, odds, and outcomes for various games, providing essential information for analysis.">
+      <option name="closed" value="true" />
+      <created>1732225632626</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732225632626</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -93,6 +108,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add initial project setup and VirtualSportsCollector class&#10;&#10;This commit includes the initial setup files for the project, such as IntelliJ IDEA configuration files and a basic &quot;main.py&quot; entry point. It also introduces the &quot;VirtualSportsCollector&quot; class within an IPython notebook that collects and processes virtual sports match data from the Eurobet API. The collector saves the data into CSV and Excel formats, ensuring no duplicates and maintaining a structured format." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add initial project setup and VirtualSportsCollector class&#10;&#10;This commit includes the initial setup files for the project, such as IntelliJ IDEA configuration files and a basic &quot;main.py&quot; entry point. It also introduces the &quot;VirtualSportsCollector&quot; class within an IPython notebook that collects and processes virtual sports match data from the Eurobet API. The collector saves the data into CSV and Excel formats, ensuring no duplicates and maintaining a structured format." />
+    <MESSAGE value="Add virtual match data CSV files&#10;&#10;These files contain detailed results and statistics for virtual matches on 21-11-2024. The data includes scores, odds, and outcomes for various games, providing essential information for analysis." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add virtual match data CSV files&#10;&#10;These files contain detailed results and statistics for virtual matches on 21-11-2024. The data includes scores, odds, and outcomes for various games, providing essential information for analysis." />
   </component>
 </project>
