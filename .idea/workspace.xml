@@ -4,14 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8facff00-3fef-4c23-9df0-e780ba34322d" name="Changes" comment="Add virtual match data CSV files&#10;&#10;These files contain detailed results and statistics for virtual matches on 21-11-2024. The data includes scores, odds, and outcomes for various games, providing essential information for analysis.">
+    <list default="true" id="8facff00-3fef-4c23-9df0-e780ba34322d" name="Changes" comment="Delete outdated files and update data and model files&#10;&#10;Removed old analysis and plot files for cleanup. Updated `lstm_model.keras` and `virtual_matches_data.xlsx` to reflect recent changes. This helps in maintaining a concise and efficient codebase.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analitica — копия.ipynb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/analitica.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/analitica.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/virtual_odds_detail.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/virtual_odds_detail.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/virtual_matches_data .csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/virtual_matches_data 2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grafici_analisi/1_distribuzione_oraria.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grafici_analisi/2_pattern_dopo_pareggio.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grafici_analisi/3_heatmap_settimanale.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/grafici_analisi/4_risultati_esatti.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lstm_model.keras" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/virtual_matches_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_matches_data.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/virtual_matches_data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_matches_data.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/virtual_odds_detail.csv" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +87,9 @@
       <updated>1732222105286</updated>
       <workItem from="1732222106371" duration="6582000" />
       <workItem from="1732228744202" duration="2586000" />
-      <workItem from="1732263890481" duration="1461000" />
+      <workItem from="1732263890481" duration="2410000" />
+      <workItem from="1732266345714" duration="12424000" />
+      <workItem from="1732278901600" duration="16093000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial project setup and VirtualSportsCollector class&#10;&#10;This commit includes the initial setup files for the project, such as IntelliJ IDEA configuration files and a basic &quot;main.py&quot; entry point. It also introduces the &quot;VirtualSportsCollector&quot; class within an IPython notebook that collects and processes virtual sports match data from the Eurobet API. The collector saves the data into CSV and Excel formats, ensuring no duplicates and maintaining a structured format.">
       <option name="closed" value="true" />
@@ -100,7 +107,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732225632626</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add new analysis charts and LSTM model&#10;&#10;Added new graphical analysis charts for distribution, pattern, weekly heatmap, and exact results. Introduced a new LSTM model file. Removed obsolete data source files and the `main.py` script.">
+      <option name="closed" value="true" />
+      <created>1732265683604</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732265683604</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,6 +124,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add initial project setup and VirtualSportsCollector class&#10;&#10;This commit includes the initial setup files for the project, such as IntelliJ IDEA configuration files and a basic &quot;main.py&quot; entry point. It also introduces the &quot;VirtualSportsCollector&quot; class within an IPython notebook that collects and processes virtual sports match data from the Eurobet API. The collector saves the data into CSV and Excel formats, ensuring no duplicates and maintaining a structured format." />
     <MESSAGE value="Add virtual match data CSV files&#10;&#10;These files contain detailed results and statistics for virtual matches on 21-11-2024. The data includes scores, odds, and outcomes for various games, providing essential information for analysis." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add virtual match data CSV files&#10;&#10;These files contain detailed results and statistics for virtual matches on 21-11-2024. The data includes scores, odds, and outcomes for various games, providing essential information for analysis." />
+    <MESSAGE value="Add new analysis charts and LSTM model&#10;&#10;Added new graphical analysis charts for distribution, pattern, weekly heatmap, and exact results. Introduced a new LSTM model file. Removed obsolete data source files and the `main.py` script." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add new analysis charts and LSTM model&#10;&#10;Added new graphical analysis charts for distribution, pattern, weekly heatmap, and exact results. Introduced a new LSTM model file. Removed obsolete data source files and the `main.py` script." />
   </component>
 </project>
