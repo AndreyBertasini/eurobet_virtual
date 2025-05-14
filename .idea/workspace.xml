@@ -5,18 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8facff00-3fef-4c23-9df0-e780ba34322d" name="Changes" comment="Delete outdated files and update data and model files&#10;&#10;Removed old analysis and plot files for cleanup. Updated `lstm_model.keras` and `virtual_matches_data.xlsx` to reflect recent changes. This helps in maintaining a concise and efficient codebase.">
+      <change afterPath="$PROJECT_DIR$/parsing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/goldbet_virtual.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/goldbet_virtual.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analitica — копия.ipynb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/analitica.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/analitica.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/virtual_odds_detail.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/virtual_odds_detail.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grafici_analisi/1_distribuzione_oraria.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/grafici_analisi/2_pattern_dopo_pareggio.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/grafici_analisi/3_heatmap_settimanale.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/grafici_analisi/4_risultati_esatti.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lstm_model.keras" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/virtual_matches_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_matches_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/virtual_matches_data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_matches_data.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/virtual_odds_detail.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/virtual_matches_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/virtual_matches_data.xlsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +22,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -42,38 +38,39 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/AndreyBertasini/eurobet_virtual.git&quot;,
-    &quot;accountId&quot;: &quot;70336019-88bb-4d1a-9dd0-5159f1f0bf5e&quot;
+    &quot;accountId&quot;: &quot;488db7e1-8cc2-4747-8216-022177834623&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2pAwIB0xbrXAR6tI3lSUfnaWydd" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Python.parsing.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "junie.onboarding.icon.badge.shown": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-e768b9ed790e-JavaScript-PY-243.21565.199" />
-        <option value="bundled-python-sdk-cab1f2013843-4ae2d6a61b08-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.21565.199" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-PY-251.25410.122" />
+        <option value="bundled-python-sdk-880ecab49056-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.25410.122" />
       </set>
     </attachedChunks>
   </component>
@@ -90,6 +87,9 @@
       <workItem from="1732263890481" duration="2410000" />
       <workItem from="1732266345714" duration="12424000" />
       <workItem from="1732278901600" duration="16093000" />
+      <workItem from="1747065020925" duration="430000" />
+      <workItem from="1747205635237" duration="21000" />
+      <workItem from="1747216408559" duration="1936000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial project setup and VirtualSportsCollector class&#10;&#10;This commit includes the initial setup files for the project, such as IntelliJ IDEA configuration files and a basic &quot;main.py&quot; entry point. It also introduces the &quot;VirtualSportsCollector&quot; class within an IPython notebook that collects and processes virtual sports match data from the Eurobet API. The collector saves the data into CSV and Excel formats, ensuring no duplicates and maintaining a structured format.">
       <option name="closed" value="true" />
@@ -126,5 +126,8 @@
     <MESSAGE value="Add virtual match data CSV files&#10;&#10;These files contain detailed results and statistics for virtual matches on 21-11-2024. The data includes scores, odds, and outcomes for various games, providing essential information for analysis." />
     <MESSAGE value="Add new analysis charts and LSTM model&#10;&#10;Added new graphical analysis charts for distribution, pattern, weekly heatmap, and exact results. Introduced a new LSTM model file. Removed obsolete data source files and the `main.py` script." />
     <option name="LAST_COMMIT_MESSAGE" value="Add new analysis charts and LSTM model&#10;&#10;Added new graphical analysis charts for distribution, pattern, weekly heatmap, and exact results. Introduced a new LSTM model file. Removed obsolete data source files and the `main.py` script." />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/eurobet_virtual_2$parsing.coverage" NAME="parsing Coverage Results" MODIFIED="1747219479435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
