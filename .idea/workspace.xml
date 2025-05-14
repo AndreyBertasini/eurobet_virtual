@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8facff00-3fef-4c23-9df0-e780ba34322d" name="Changes" comment="Refactor data collection and processing in parsing scripts&#10;&#10;Optimized data collection logic by improving date handling and error management in virtual match data retrieval. Streamlined JSON decoding, enhanced compatibility with Brotli/Gzip encoding, and restructured data merging and deduplication for efficiency. Simplified notebook functionality and improved maintainability.">
-      <change afterPath="$PROJECT_DIR$/catboost_model.py" afterDir="false" />
+    <list default="true" id="8facff00-3fef-4c23-9df0-e780ba34322d" name="Changes" comment="Refactor analytics notebook to optimize draw analysis&#10;&#10;Simplified and reorganized code for analyzing draw statistics in matches. Added new visualizations, advanced metrics, and a modular betting strategy simulation to enhance usability and maintainability.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/new_analitics.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/new_analitics.ipynb" afterDir="false" />
     </list>
@@ -87,7 +86,7 @@
       <workItem from="1747065020925" duration="430000" />
       <workItem from="1747205635237" duration="21000" />
       <workItem from="1747216408559" duration="4213000" />
-      <workItem from="1747225384086" duration="4849000" />
+      <workItem from="1747225384086" duration="5570000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial project setup and VirtualSportsCollector class&#10;&#10;This commit includes the initial setup files for the project, such as IntelliJ IDEA configuration files and a basic &quot;main.py&quot; entry point. It also introduces the &quot;VirtualSportsCollector&quot; class within an IPython notebook that collects and processes virtual sports match data from the Eurobet API. The collector saves the data into CSV and Excel formats, ensuring no duplicates and maintaining a structured format.">
       <option name="closed" value="true" />
@@ -129,7 +128,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747226166182</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Refactor analytics notebook to optimize draw analysis&#10;&#10;Simplified and reorganized code for analyzing draw statistics in matches. Added new visualizations, advanced metrics, and a modular betting strategy simulation to enhance usability and maintainability.">
+      <option name="closed" value="true" />
+      <created>1747230619447</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1747230619447</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,7 +148,8 @@
     <MESSAGE value="Add new analysis charts and LSTM model&#10;&#10;Added new graphical analysis charts for distribution, pattern, weekly heatmap, and exact results. Introduced a new LSTM model file. Removed obsolete data source files and the `main.py` script." />
     <MESSAGE value="Delete outdated files and update data and model files&#10;&#10;Removed old analysis and plot files for cleanup. Updated `lstm_model.keras` and `virtual_matches_data.xlsx` to reflect recent changes. This helps in maintaining a concise and efficient codebase." />
     <MESSAGE value="Refactor data collection and processing in parsing scripts&#10;&#10;Optimized data collection logic by improving date handling and error management in virtual match data retrieval. Streamlined JSON decoding, enhanced compatibility with Brotli/Gzip encoding, and restructured data merging and deduplication for efficiency. Simplified notebook functionality and improved maintainability." />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor data collection and processing in parsing scripts&#10;&#10;Optimized data collection logic by improving date handling and error management in virtual match data retrieval. Streamlined JSON decoding, enhanced compatibility with Brotli/Gzip encoding, and restructured data merging and deduplication for efficiency. Simplified notebook functionality and improved maintainability." />
+    <MESSAGE value="Refactor analytics notebook to optimize draw analysis&#10;&#10;Simplified and reorganized code for analyzing draw statistics in matches. Added new visualizations, advanced metrics, and a modular betting strategy simulation to enhance usability and maintainability." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor analytics notebook to optimize draw analysis&#10;&#10;Simplified and reorganized code for analyzing draw statistics in matches. Added new visualizations, advanced metrics, and a modular betting strategy simulation to enhance usability and maintainability." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/eurobet_virtual_2$parsing.coverage" NAME="parsing Coverage Results" MODIFIED="1747229895514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
