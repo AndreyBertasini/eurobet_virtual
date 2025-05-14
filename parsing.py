@@ -13,7 +13,6 @@ class VirtualSportsCollector:
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
             'Accept': 'application/json, text/plain, */*',
-            # Indichiamo che accettiamo risposte compresse (gzip, deflate, br)
             'Accept-Encoding': 'gzip, deflate, br',
             'Accept-Language': 'en-US,en;q=0.6',
             'Origin': 'https://www.eurobet.it',
@@ -32,7 +31,6 @@ class VirtualSportsCollector:
 
     def create_match_id(self, row):
         """Crea un identificatore univoco per ogni partita."""
-        # Assicura che i campi chiave siano stringhe per evitare errori con None
         date_val = str(row.get('date', ''))
         hour_val = str(row.get('hour', ''))
         home_team_val = str(row.get('home_team', ''))
@@ -43,20 +41,17 @@ class VirtualSportsCollector:
         """Carica i dati esistenti dal CSV, se esiste."""
         if os.path.exists(self.csv_filename):
             try:
-                # Specifica dtype per colonne potenzialmente problematiche per evitare avvisi di tipo misto
-                # Questo è un esempio, potrebbe essere necessario adattarlo in base ai dati effettivi
-                dtype_spec = {
-                    'odds_1': 'object',
-                    'result': 'object',
-                    'over_under_25': 'object',
-                    'odds_over_under_25': 'object',
-                    'goal_no_goal': 'object',
-                    'odds_goal_no_goal': 'object'
+                dtype_spec = {  # Specifica dtype per colonne potenzialmente problematiche
+                    'odds_1': 'object', 'result': 'object',
+                    'over_under_25': 'object', 'odds_over_under_25': 'object',
+                    'goal_no_goal': 'object', 'odds_goal_no_goal': 'object',
+                    'home_goals': 'Int64', 'away_goals': 'Int64'  # Usa Int64 per permettere NaN interi
                 }
                 df = pd.read_csv(self.csv_filename, dtype=dtype_spec)
-                # Converte la colonna datetime se esiste, gestendo errori
                 if 'datetime' in df.columns:
                     df['datetime'] = pd.to_datetime(df['datetime'], errors='coerce')
+                # Rimuovi colonne completamente vuote che potrebbero essere state create da errori precedenti
+                df.dropna(axis=1, how='all', inplace=True)
                 return df
             except pd.errors.EmptyDataError:
                 print(f"Il file CSV {self.csv_filename} è vuoto. Verrà creato un nuovo DataFrame.")
@@ -67,12 +62,7 @@ class VirtualSportsCollector:
         return pd.DataFrame()
 
     def get_virtual_data(self, start_date, end_date):
-        """
-        Recupera i dati virtuali per l'intervallo di date specificato.
-        Args:
-            start_date (datetime): La data di inizio per il recupero dei dati.
-            end_date (datetime): La data di fine (inclusa) per il recupero dei dati.
-        """
+        """Recupera i dati virtuali per l'intervallo di date specificato."""
         all_matches = []
         current_date = start_date
 
@@ -81,76 +71,92 @@ class VirtualSportsCollector:
             url = self.base_url.format(date_str)
             print(f"Tentativo di recupero dati per {date_str} da URL: {url}")
             data = None
-            response = None  # Inizializza response
+            response = None
 
             try:
-                response = requests.get(url, headers=self.headers, timeout=20)  # Timeout aumentato leggermente
-                response.raise_for_status()  # Solleva eccezione per status code 4xx/5xx
+                response = requests.get(url, headers=self.headers, timeout=25)
+                response.raise_for_status()
 
                 if not response.content:
                     print(f"Risposta vuota ricevuta per {date_str} (Status: {response.status_code}). URL: {url}")
-                    time.sleep(1)
+                    time.sleep(1.5)
                     current_date += timedelta(days=1)
                     continue
 
-                # Tentativo di parsing JSON (requests dovrebbe gestire la decompressione automatica)
                 try:
                     data = response.json()
-                    print(f"Dati per {date_str} parsati con successo (decompressione automatica o nessuna).")
                 except json.JSONDecodeError:
-                    print(f"Errore di decodifica JSON standard per {date_str}.")
-                    print(f"Status code della risposta: {response.status_code}")
+                    print(f"Errore di decodifica JSON standard per {date_str}. Status: {response.status_code}")
                     content_encoding = response.headers.get('Content-Encoding', '').lower()
                     print(f"Header Content-Encoding: {content_encoding if content_encoding else 'Non presente'}")
 
+                    decompressed_successfully = False
                     if content_encoding == 'br':
-                        print("Il contenuto sembra essere Brotli. Tentativo di decomprimere manualmente.")
+                        print("Tentativo di decompressione Brotli manuale.")
                         try:
                             decompressed_content = brotli.decompress(response.content)
                             data = json.loads(decompressed_content.decode('utf-8'))
-                            print(f"Contenuto Brotli per {date_str} decompresso e parsato con successo manualmente.")
+                            print(f"Contenuto Brotli per {date_str} decompresso e parsato manualmente.")
+                            decompressed_successfully = True
                         except Exception as e_decompress:
-                            print(
-                                f"Fallimento nella decompressione manuale Brotli o nel parsing per {date_str}: {e_decompress}")
-                            print(f"Contenuto grezzo (primi 200 byte): {response.content[:200]}...")
+                            print(f"Fallimento decompressione/parsing Brotli per {date_str}: {e_decompress}")
 
                     elif content_encoding == 'gzip' or response.content.startswith(b'\x1f\x8b\x08'):
-                        print("Il contenuto sembra essere Gzip. Tentativo di decomprimere manualmente.")
+                        print("Tentativo di decompressione Gzip manuale.")
                         try:
                             decompressed_content = gzip.decompress(response.content)
                             data = json.loads(decompressed_content.decode('utf-8'))
-                            print(f"Contenuto Gzip per {date_str} decompresso e parsato con successo manualmente.")
+                            print(f"Contenuto Gzip per {date_str} decompresso e parsato manualmente.")
+                            decompressed_successfully = True
                         except Exception as e_decompress:
-                            print(
-                                f"Fallimento nella decompressione manuale Gzip o nel parsing per {date_str}: {e_decompress}")
-                            print(f"Contenuto grezzo (primi 200 byte): {response.content[:200]}...")
-                    else:
-                        print(
-                            f"Il contenuto non sembra essere Brotli o Gzip, o la decodifica JSON è fallita per altri motivi.")
-                        print(
-                            f"Testo della risposta (se decodificabile, primi 500 caratteri): {response.text[:500] if response.text else 'Nessun testo decodificabile'}...")
+                            print(f"Fallimento decompressione/parsing Gzip per {date_str}: {e_decompress}")
+
+                    if not decompressed_successfully:
+                        print(f"Decodifica JSON fallita per {date_str} anche dopo tentativi manuali (se applicabili).")
                         print(f"Contenuto grezzo (primi 200 byte): {response.content[:200]}...")
-
-                    if data is None:  # Se tutti i tentativi di decodifica falliscono
-                        time.sleep(1)
+                        time.sleep(1.5)
                         current_date += timedelta(days=1)
-                        continue  # Passa alla data successiva
+                        continue
 
-                # Elaborazione dei dati se il parsing JSON ha avuto successo
+                # Elaborazione dei dati
                 if data and 'result' in data and data['result'] is not None and 'groupDate' in data['result']:
                     for group in data['result']['groupDate']:
                         if 'events' in group and group['events'] is not None:
                             for event in group['events']:
                                 try:
-                                    home_team_name = event.get('eventDescription', ' - ').split(' - ')[0]
-                                    away_team_name = event.get('eventDescription', ' - ')[1] if ' - ' in event.get(
-                                        'eventDescription', '') else None
+                                    # --- Inizio Logica di Parsing Team Names Migliorata ---
+                                    parsed_home_team = None
+                                    parsed_away_team = None
+
+                                    event_desc_raw = event.get('eventDescription')
+
+                                    if isinstance(event_desc_raw, str) and event_desc_raw.strip():
+                                        cleaned_desc = event_desc_raw.strip()
+                                        parts = cleaned_desc.split(' - ', 1)  # Divide al massimo una volta
+
+                                        if parts[0]:  # Nome squadra casa
+                                            parsed_home_team = parts[0].strip()
+                                            if not parsed_home_team:  # Se solo spazi
+                                                parsed_home_team = None
+
+                                        if len(parts) > 1:  # Se il separatore " - " è stato trovato
+                                            if parts[1]:  # Nome squadra ospite
+                                                parsed_away_team = parts[1].strip()
+                                                if not parsed_away_team:  # Se solo spazi o stringa vuota
+                                                    parsed_away_team = None
+                                            # else: parsed_away_team rimane None (es. "Team A - ")
+                                        # else: parsed_away_team rimane None (es. "Team A")
+                                    elif event_desc_raw is not None:  # Se non è stringa ma esiste (improbabile per descrizione)
+                                        temp_desc = str(event_desc_raw).strip()
+                                        if temp_desc:
+                                            parsed_home_team = temp_desc
+                                    # --- Fine Logica di Parsing Team Names Migliorata ---
 
                                     match_data = {
                                         'date': event.get('date'),
                                         'hour': event.get('hour'),
-                                        'home_team': home_team_name,
-                                        'away_team': away_team_name,
+                                        'home_team': parsed_home_team,  # Usa il nome parsato
+                                        'away_team': parsed_away_team,  # Usa il nome parsato
                                         'score': event.get('finalResult'),
                                         'home_goals': None,
                                         'away_goals': None,
@@ -164,8 +170,7 @@ class VirtualSportsCollector:
                                                                                     errors='coerce')
                                         except ValueError as ve:
                                             print(
-                                                f"Errore di formato data/ora per {event['date']} {event['hour']}: {ve}")
-                                            match_data['datetime'] = None  # Assicura che sia None in caso di errore
+                                                f"Errore formato data/ora: {event.get('date')} {event.get('hour')}: {ve}")
 
                                     if event.get('finalResult') and '-' in event['finalResult']:
                                         try:
@@ -174,7 +179,7 @@ class VirtualSportsCollector:
                                             match_data['away_goals'] = int(scores[1])
                                         except ValueError:
                                             print(
-                                                f"Impossibile parsare il punteggio: {event['finalResult']} per l'evento {event.get('eventDescription')}")
+                                                f"Score non parsabile: {event['finalResult']} per {event.get('eventDescription')}")
 
                                     if 'oddGroup' in event and event['oddGroup'] is not None:
                                         for odd_group in event['oddGroup']:
@@ -182,105 +187,102 @@ class VirtualSportsCollector:
                                             odds_list = odd_group.get('odds')
                                             result_desc_list = odd_group.get('resultDescription')
 
-                                            # Controllo che odds_list e result_desc_list non siano None prima di accedere agli elementi
-                                            if bet_abbr == '1X2' and odds_list and result_desc_list:
-                                                match_data['odds_1'] = odds_list[0] if len(odds_list) > 0 else None
-                                                match_data['result'] = result_desc_list[0] if len(
-                                                    result_desc_list) > 0 else None
-                                            elif bet_abbr == 'U/O 2.5' and odds_list and result_desc_list:  # Corretto da 'Under / Over 2.5'
-                                                match_data['over_under_25'] = result_desc_list[0] if len(
-                                                    result_desc_list) > 0 else None
-                                                match_data['odds_over_under_25'] = odds_list[0] if len(
-                                                    odds_list) > 0 else None
-                                            elif bet_abbr == 'Goal/No Goal' and odds_list and result_desc_list:
-                                                match_data['goal_no_goal'] = result_desc_list[0] if len(
-                                                    result_desc_list) > 0 else None
-                                                match_data['odds_goal_no_goal'] = odds_list[0] if len(
-                                                    odds_list) > 0 else None
+                                            if not (odds_list and result_desc_list): continue
+
+                                            if bet_abbr == '1X2':
+                                                match_data['odds_1'] = odds_list[0] if odds_list else None
+                                                match_data['result'] = result_desc_list[0] if result_desc_list else None
+                                            elif bet_abbr == 'Under / Over 2.5':
+                                                match_data['over_under_25'] = result_desc_list[
+                                                    0] if result_desc_list else None
+                                                match_data['odds_over_under_25'] = odds_list[0] if odds_list else None
+                                            elif bet_abbr == 'U/O 2.5':
+                                                # print(f"Nota: Trovato 'U/O 2.5' (invece di 'Under / Over 2.5') per {date_str}, evento {event.get('eventDescription')}")
+                                                match_data['over_under_25'] = result_desc_list[
+                                                    0] if result_desc_list else None
+                                                match_data['odds_over_under_25'] = odds_list[0] if odds_list else None
+                                            elif bet_abbr == 'Goal/No Goal':
+                                                match_data['goal_no_goal'] = result_desc_list[
+                                                    0] if result_desc_list else None
+                                                match_data['odds_goal_no_goal'] = odds_list[0] if odds_list else None
 
                                     all_matches.append(match_data)
                                 except Exception as e_inner:
                                     print(
-                                        f"Errore durante l'elaborazione di un evento per {date_str}: {e_inner}. Evento: {json.dumps(event, indent=2)}")
+                                        f"Errore elaborazione evento ({date_str}): {e_inner}. Evento: {json.dumps(event, indent=2)}")
                         else:
-                            print(f"Nessun evento ('events') trovato nel gruppo per {date_str} o il gruppo è None.")
+                            print(f"Nessun evento ('events') in groupDate per {date_str}.")
                 elif data:
-                    print(
-                        f"Struttura JSON inattesa o 'result'/'groupDate' mancante per {date_str}. Dati ricevuti (primi 500 caratteri): {str(data)[:500]}...")
-                else:  # data is None
-                    print(f"Nessun dato JSON valido ottenuto per {date_str} dopo i tentativi di decompressione.")
-
+                    print(f"Struttura JSON inattesa per {date_str}. Dati (inizio): {str(data)[:200]}...")
+                else:
+                    print(f"Nessun dato JSON valido per {date_str} dopo tentativi di decompressione.")
 
             except requests.exceptions.HTTPError as http_err:
-                print(
-                    f"Errore HTTP per {date_str}: {http_err} (Status: {response.status_code if response else 'N/A'}) - URL: {url}")
+                print(f"Errore HTTP per {date_str}: {http_err} (Status: {response.status_code if response else 'N/A'})")
             except requests.exceptions.ConnectionError as conn_err:
-                print(f"Errore di connessione per {date_str}: {conn_err} - URL: {url}")
+                print(f"Errore di connessione per {date_str}: {conn_err}")
             except requests.exceptions.Timeout as timeout_err:
-                print(f"Errore di Timeout per {date_str}: {timeout_err} - URL: {url}")
+                print(f"Timeout per {date_str}: {timeout_err}")
             except Exception as e:
-                print(f"Errore imprevisto durante il recupero dati per {date_str}: {e} - URL: {url}")
+                print(f"Errore imprevisto recupero dati ({date_str}): {e}")
 
-            time.sleep(1.5)  # Aumentata leggermente la pausa
+            time.sleep(1.5)
             current_date += timedelta(days=1)
 
         return pd.DataFrame(all_matches)
 
     def merge_and_save_data(self, new_data):
-        """Unisci i nuovi dati con quelli esistenti, rimuovi i duplicati e salva."""
+        """Unisci i nuovi dati con quelli esistenti, rimuovi sempre i duplicati e salva."""
         existing_data = self.load_existing_data()
 
-        if new_data.empty:
-            print("Nessun nuovo dato da unire.")
-            if not existing_data.empty:
-                print(f"Database esistente contiene {len(existing_data)} partite.")
-                try:
-                    existing_data.to_csv(self.csv_filename, index=False)
-                    existing_data.to_excel(self.excel_filename, index=False)
-                    print(f"Dati esistenti (ri)salvati in {self.csv_filename} e {self.excel_filename}")
-                except Exception as e:
-                    print(f"Errore durante il salvataggio dei dati esistenti: {e}")
-            else:
-                print("Database esistente è vuoto o non è stato possibile caricarlo.")
-            return existing_data
-
-        # Assicura che la colonna 'datetime' sia nel formato corretto prima di unire
         if not existing_data.empty and 'datetime' in existing_data.columns:
             existing_data['datetime'] = pd.to_datetime(existing_data['datetime'], errors='coerce')
-
-        if 'datetime' in new_data.columns:
+        if not new_data.empty and 'datetime' in new_data.columns:
             new_data['datetime'] = pd.to_datetime(new_data['datetime'], errors='coerce')
+
+        if new_data.empty:
+            print("Nessun nuovo dato da unire. Processando e risalvando i dati esistenti (se presenti).")
+            if existing_data.empty:
+                print("Database esistente è vuoto. Nessun dato da salvare o processare.")
+                pd.DataFrame().to_csv(self.csv_filename, index=False)
+                pd.DataFrame().to_excel(self.excel_filename, index=False)
+                print(f"Creati/aggiornati file vuoti: {self.csv_filename} e {self.excel_filename}")
+                return pd.DataFrame()
+            combined_data = existing_data
         else:
-            print(
-                "Attenzione: colonna 'datetime' mancante nei nuovi dati. Impossibile ordinare o rimuovere duplicati basati su di essa.")
-            # Potrebbe essere necessario creare una colonna datetime fittizia o gestire l'errore
-            # Per ora, procediamo ma l'ordinamento e la rimozione dei duplicati potrebbero non funzionare come previsto.
+            print(f"Unendo {len(new_data)} nuove partite con {len(existing_data)} partite esistenti.")
+            combined_data = pd.concat([existing_data, new_data], ignore_index=True)
 
-        combined_data = pd.concat([existing_data, new_data], ignore_index=True)
+        if combined_data.empty:
+            print("Nessun dato (né esistente né nuovo) da processare.")
+            return pd.DataFrame()
 
-        # Rimuovi righe dove 'datetime' è NaT (Not a Time) solo se la colonna esiste
+        print(f"Dati combinati prima della pulizia: {len(combined_data)} righe.")
+
         if 'datetime' in combined_data.columns:
+            initial_rows = len(combined_data)
             combined_data.dropna(subset=['datetime'], inplace=True)
+            if len(combined_data) < initial_rows:
+                print(f"Rimosse {initial_rows - len(combined_data)} righe con datetime non valido.")
 
-        # Crea 'match_id' per la deduplicazione
-        # Usa .get() con valori predefiniti vuoti per evitare errori se le chiavi mancano
-        combined_data['match_id'] = combined_data.apply(
-            lambda
-                row: f"{row.get('date', '')}_{row.get('hour', '')}_{row.get('home_team', '')}_{row.get('away_team', '')}",
-            axis=1
-        )
+        combined_data['match_id'] = combined_data.apply(self.create_match_id, axis=1)
 
-        # Rimuovi righe dove match_id è vuoto o indica dati incompleti
         combined_data = combined_data[combined_data['match_id'] != "___"]
-        combined_data.dropna(subset=['match_id'], inplace=True)  # Rimuove eventuali None rimasti
+        combined_data.dropna(subset=['match_id'], inplace=True)
 
-        # Ordinamento e rimozione duplicati
-        if 'datetime' in combined_data.columns:
+        if combined_data.empty:
+            print("Nessun dato valido rimasto dopo la pulizia iniziale di match_id.")
+            pd.DataFrame().to_csv(self.csv_filename, index=False)
+            pd.DataFrame().to_excel(self.excel_filename, index=False)
+            return pd.DataFrame()
+
+        print(f"Dati prima della deduplicazione: {len(combined_data)} righe.")
+        if 'datetime' in combined_data.columns and not combined_data.empty:
             combined_data = combined_data.sort_values('datetime', ascending=False)
             combined_data = combined_data.drop_duplicates(subset=['match_id'], keep='first')
-        else:
-            # Se datetime non è disponibile, deduplica solo su match_id senza un ordinamento temporale specifico
+        elif not combined_data.empty:
             combined_data = combined_data.drop_duplicates(subset=['match_id'], keep='first')
+        print(f"Dati dopo la deduplicazione: {len(combined_data)} righe.")
 
         if 'match_id' in combined_data.columns:
             combined_data = combined_data.drop('match_id', axis=1)
@@ -288,66 +290,66 @@ class VirtualSportsCollector:
         try:
             combined_data.to_csv(self.csv_filename, index=False)
             combined_data.to_excel(self.excel_filename, index=False)
-            print(f"Dati combinati salvati con successo in {self.csv_filename} e {self.excel_filename}")
+            print(
+                f"Dati salvati con successo ({len(combined_data)} righe) in {self.csv_filename} e {self.excel_filename}")
         except Exception as e:
-            print(f"Errore durante il salvataggio dei file combinati: {e}")
+            print(f"Errore durante il salvataggio dei file: {e}")
 
         return combined_data
 
     def collect_data(self, days_to_fetch_count=1):
-        """
-        Metodo principale per raccogliere ed elaborare i dati.
-        Recupera i dati per `days_to_fetch_count` giorni, terminando con ieri.
-        """
-        if not isinstance(days_to_fetch_count, int) or days_to_fetch_count < 1:
-            print("days_to_fetch_count deve essere un intero positivo.")
+        """Metodo principale per raccogliere, elaborare e salvare i dati."""
+        if not isinstance(days_to_fetch_count, int) or days_to_fetch_count < 0:
+            print("Errore: days_to_fetch_count deve essere un intero non negativo (0 per oggi, >0 per giorni passati).")
             return
 
-        # La data di oggi
         today = datetime.now()
-        # La data finale per la raccolta è ieri
-        end_date_of_collection = today - timedelta(days=1)
-        # La data iniziale per la raccolta
-        start_date_of_collection = end_date_of_collection - timedelta(days=days_to_fetch_count - 1)
+        start_date_of_collection, end_date_of_collection = None, None
 
-        print(
-            f"Richiesta dati dal {start_date_of_collection.strftime('%d-%m-%Y')} al {end_date_of_collection.strftime('%d-%m-%Y')}")
+        if days_to_fetch_count == 0:
+            start_date_of_collection = today
+            end_date_of_collection = today
+            print(f"Richiesta dati per oggi: {today.strftime('%d-%m-%Y')}")
+        else:
+            end_date_of_collection = today - timedelta(days=1)
+            start_date_of_collection = end_date_of_collection - timedelta(days=days_to_fetch_count - 1)
+            if days_to_fetch_count == 1:
+                print(f"Richiesta dati per ieri: {end_date_of_collection.strftime('%d-%m-%Y')}")
+            else:
+                print(
+                    f"Richiesta dati dal {start_date_of_collection.strftime('%d-%m-%Y')} al {end_date_of_collection.strftime('%d-%m-%Y')}")
 
-        new_data = self.get_virtual_data(start_date_of_collection, end_date_of_collection)
+        new_data = pd.DataFrame()
+        if start_date_of_collection <= end_date_of_collection:
+            new_data = self.get_virtual_data(start_date_of_collection, end_date_of_collection)
+        else:
+            print(
+                f"Intervallo date non valido: start {start_date_of_collection}, end {end_date_of_collection}. Salto recupero dati.")
 
         if not new_data.empty:
-            print(f"Recuperate {len(new_data)} nuove partite.")
+            print(f"Recuperate {len(new_data)} nuove partite dalla fonte.")
         else:
             print("Nessun nuovo dato raccolto dalla fonte.")
 
-        final_data = self.merge_and_save_data(new_data)  # Chiama sempre merge_and_save_data
+        final_data = self.merge_and_save_data(new_data)
 
         if final_data is not None and not final_data.empty:
-            print(f"Totale partite nel database dopo l'aggiornamento: {len(final_data)}")
-        elif final_data is not None and final_data.empty and new_data.empty:
-            print("Il database è vuoto e non sono stati aggiunti nuovi dati.")
-        elif final_data is not None and final_data.empty and not new_data.empty:
-            print("Errore: nuovi dati recuperati ma il database finale è vuoto dopo l'unione.")
+            print(f"Database finale contiene {len(final_data)} partite.")
+        elif final_data is not None and final_data.empty:
+            print("Il database finale è vuoto.")
+        else:
+            print("Errore: final_data è None dopo merge_and_save_data.")
 
 
 def main(days_to_fetch_count=1):
-    """
-    Funzione principale per avviare il collettore di dati.
-    Args:
-        days_to_fetch_count (int): Numero di giorni passati per cui recuperare i dati.
-                                   Default è 1 (solo i dati di ieri).
-    """
+    """Funzione principale per avviare il collettore di dati."""
     collector = VirtualSportsCollector()
     collector.collect_data(days_to_fetch_count)
 
 
 if __name__ == "__main__":
-    # --- IMPOSTAZIONE DEI GIORNI DA RECUPERARE ---
-    # Modifica questa variabile per cambiare il numero di giorni passati da cui recuperare i dati.
-    # Esempio: 1 recupera solo i dati di ieri.
-    # Esempio: 7 recupera i dati degli ultimi 7 giorni (fino a ieri).
-    GIORNI_DA_RECUPERARE = 3  # Modificato per testare su un range più ampio come da log
+    GIORNI_DA_RECUPERARE = 0
 
-    print(f"Avvio dello script per recuperare i dati degli ultimi {GIORNI_DA_RECUPERARE} giorni (fino a ieri).")
+    print(f"Avvio script. GIORNI_DA_RECUPERARE impostato a: {GIORNI_DA_RECUPERARE}")
     main(days_to_fetch_count=GIORNI_DA_RECUPERARE)
     print("Script terminato.")
