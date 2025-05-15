@@ -348,7 +348,7 @@ def main(days_to_fetch_count=1):
 
 
 if __name__ == "__main__":
-    GIORNI_DA_RECUPERARE = 0
+    GIORNI_DA_RECUPERARE = 200
 
     print(f"Avvio script. GIORNI_DA_RECUPERARE impostato a: {GIORNI_DA_RECUPERARE}")
     main(days_to_fetch_count=GIORNI_DA_RECUPERARE)
