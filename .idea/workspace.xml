@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8facff00-3fef-4c23-9df0-e780ba34322d" name="Changes" comment="Add comprehensive big match analysis and prediction system&#10;&#10;This commit introduces a detailed system for collecting, preparing, and analyzing virtual match data. Includes data scraping, prediction model integration, Bayesian and Markov probability calculations, betting recommendations, and visualization tools.">
-      <change afterPath="$PROJECT_DIR$/parging_test.py" afterDir="false" />
+    <list default="true" id="8facff00-3fef-4c23-9df0-e780ba34322d" name="Changes" comment="Add comprehensive big match analysis and prediction system xxxxx funziona tutto &#10;&#10;This commit introduces a detailed system for collecting, preparing, and analyzing virtual match data. Includes data scraping, prediction model integration, Bayesian and Markov probability calculations, betting recommendations, and visualization tools.">
+      <change afterPath="$PROJECT_DIR$/PREDICT_RESULT/CATBOOTS_ALL_RESULT.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PREDICT_RESULT/ui_all.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/catboost_info/catboost_training.json" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/catboost_training.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/catboost_info/learn/events.out.tfevents" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/learn/events.out.tfevents" afterDir="false" />
@@ -14,11 +16,8 @@
       <change beforePath="$PROJECT_DIR$/catboost_info/test_error.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/test_error.tsv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/catboost_info/time_left.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/time_left.tsv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/catboost_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/export_model.csv" beforeDir="false" afterPath="$PROJECT_DIR$/export_model.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/new_analitics.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/new_analitics.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/predict_virtual_matches_data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/predict_virtual_matches_data.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/virtual_matches_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_matches_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/virtual_matches_data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_matches_data.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/files/catboost_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/files/catboost_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parging_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/parging_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +51,9 @@
   &quot;associatedIndex&quot;: 7
 }</component>
   <component name="ProjectId" id="2pAwIB0xbrXAR6tI3lSUfnaWydd" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -59,15 +61,18 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Python.CATBOOTS_ALL_RESULT.executor": "Run",
+    "Python.UI.executor": "Run",
     "Python.catboost_model.executor": "Run",
     "Python.parging_test.executor": "Run",
     "Python.parsing.executor": "Run",
+    "Python.ui_all.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/dyshkantiuk_andrii/Desktop/eurobet_virtual_2",
+    "last_opened_file_path": "C:/Users/dyshkantiuk_andrii/Desktop/eurobet_virtual_2/files",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -78,6 +83,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dyshkantiuk_andrii\Desktop\eurobet_virtual_2\files" />
       <recent name="C:\Users\dyshkantiuk_andrii\Desktop\eurobet_virtual_2" />
     </key>
   </component>
@@ -107,7 +113,8 @@
       <workItem from="1747216408559" duration="4213000" />
       <workItem from="1747225384086" duration="8198000" />
       <workItem from="1747245121701" duration="3727000" />
-      <workItem from="1747286137500" duration="2020000" />
+      <workItem from="1747286137500" duration="2773000" />
+      <workItem from="1747292011495" duration="2612000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial project setup and VirtualSportsCollector class&#10;&#10;This commit includes the initial setup files for the project, such as IntelliJ IDEA configuration files and a basic &quot;main.py&quot; entry point. It also introduces the &quot;VirtualSportsCollector&quot; class within an IPython notebook that collects and processes virtual sports match data from the Eurobet API. The collector saves the data into CSV and Excel formats, ensuring no duplicates and maintaining a structured format.">
       <option name="closed" value="true" />
@@ -173,7 +180,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747237545360</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add comprehensive big match analysis and prediction system xxxxx funziona tutto &#10;&#10;This commit introduces a detailed system for collecting, preparing, and analyzing virtual match data. Includes data scraping, prediction model integration, Bayesian and Markov probability calculations, betting recommendations, and visualization tools.">
+      <option name="closed" value="true" />
+      <created>1747288510474</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1747288510474</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -189,11 +204,15 @@
     <MESSAGE value="Improve analytics with advanced draw distribution analysis.&#10;&#10;Introduced optimized strategies, draw distance analysis, and enhanced heuristic rules for 'odds_1' values. Refactored logic for better prediction of draws, data export, and visualization." />
     <MESSAGE value="Refactor and enhance analytics in Jupyter notebook&#10;&#10;Reorganized the notebook structure and implemented multiple analyses on match data. Added functionality to calculate draw distributions, visualize data, and simulate a betting strategy with detailed results and metrics." />
     <MESSAGE value="Add comprehensive big match analysis and prediction system&#10;&#10;This commit introduces a detailed system for collecting, preparing, and analyzing virtual match data. Includes data scraping, prediction model integration, Bayesian and Markov probability calculations, betting recommendations, and visualization tools." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add comprehensive big match analysis and prediction system&#10;&#10;This commit introduces a detailed system for collecting, preparing, and analyzing virtual match data. Includes data scraping, prediction model integration, Bayesian and Markov probability calculations, betting recommendations, and visualization tools." />
+    <MESSAGE value="Add comprehensive big match analysis and prediction system xxxxx funziona tutto &#10;&#10;This commit introduces a detailed system for collecting, preparing, and analyzing virtual match data. Includes data scraping, prediction model integration, Bayesian and Markov probability calculations, betting recommendations, and visualization tools." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add comprehensive big match analysis and prediction system xxxxx funziona tutto &#10;&#10;This commit introduces a detailed system for collecting, preparing, and analyzing virtual match data. Includes data scraping, prediction model integration, Bayesian and Markov probability calculations, betting recommendations, and visualization tools." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/eurobet_virtual_2$parsing.coverage" NAME="parsing Coverage Results" MODIFIED="1747252936419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/eurobet_virtual_2$parging_test.coverage" NAME="parging_test Coverage Results" MODIFIED="1747287068694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/eurobet_virtual_2$catboost_model.coverage" NAME="catboost_model Coverage Results" MODIFIED="1747287949929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/eurobet_virtual_2$UI.coverage" NAME="UI Coverage Results" MODIFIED="1747293756017" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/eurobet_virtual_2$ui_all.coverage" NAME="ui_all Coverage Results" MODIFIED="1747293871611" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PREDICT_RESULT" />
+    <SUITE FILE_PATH="coverage/eurobet_virtual_2$CATBOOTS_ALL_RESULT.coverage" NAME="CATBOOTS_ALL_RESULT Coverage Results" MODIFIED="1747293449479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PREDICT_RESULT" />
+    <SUITE FILE_PATH="coverage/eurobet_virtual_2$parging_test.coverage" NAME="parging_test Coverage Results" MODIFIED="1747292262064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/eurobet_virtual_2$catboost_model.coverage" NAME="catboost_model Coverage Results" MODIFIED="1747292915088" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
