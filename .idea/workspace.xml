@@ -4,9 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8facff00-3fef-4c23-9df0-e780ba34322d" name="Changes" comment="Improve analytics with advanced draw distribution analysis.&#10;&#10;Introduced optimized strategies, draw distance analysis, and enhanced heuristic rules for 'odds_1' values. Refactored logic for better prediction of draws, data export, and visualization.">
+    <list default="true" id="8facff00-3fef-4c23-9df0-e780ba34322d" name="Changes" comment="Add comprehensive big match analysis and prediction system&#10;&#10;This commit introduces a detailed system for collecting, preparing, and analyzing virtual match data. Includes data scraping, prediction model integration, Bayesian and Markov probability calculations, betting recommendations, and visualization tools.">
+      <change afterPath="$PROJECT_DIR$/parging_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catboost_info/catboost_training.json" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/catboost_training.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catboost_info/learn/events.out.tfevents" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/learn/events.out.tfevents" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catboost_info/learn_error.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/learn_error.tsv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catboost_info/test/events.out.tfevents" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/test/events.out.tfevents" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catboost_info/test_error.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/test_error.tsv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catboost_info/time_left.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_info/time_left.tsv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catboost_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/catboost_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/export_model.csv" beforeDir="false" afterPath="$PROJECT_DIR$/export_model.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/new_analitics.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/new_analitics.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/predict_virtual_matches_data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/predict_virtual_matches_data.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/virtual_matches_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_matches_data.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/virtual_matches_data.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/virtual_matches_data.xlsx" afterDir="false" />
     </list>
@@ -50,12 +60,14 @@
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Python.catboost_model.executor": "Run",
+    "Python.parging_test.executor": "Run",
     "Python.parsing.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "C:/Users/dyshkantiuk_andrii/Desktop/eurobet_virtual_2",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -64,6 +76,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dyshkantiuk_andrii\Desktop\eurobet_virtual_2" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -88,7 +105,9 @@
       <workItem from="1747065020925" duration="430000" />
       <workItem from="1747205635237" duration="21000" />
       <workItem from="1747216408559" duration="4213000" />
-      <workItem from="1747225384086" duration="8164000" />
+      <workItem from="1747225384086" duration="8198000" />
+      <workItem from="1747245121701" duration="3727000" />
+      <workItem from="1747286137500" duration="2020000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial project setup and VirtualSportsCollector class&#10;&#10;This commit includes the initial setup files for the project, such as IntelliJ IDEA configuration files and a basic &quot;main.py&quot; entry point. It also introduces the &quot;VirtualSportsCollector&quot; class within an IPython notebook that collects and processes virtual sports match data from the Eurobet API. The collector saves the data into CSV and Excel formats, ensuring no duplicates and maintaining a structured format.">
       <option name="closed" value="true" />
@@ -146,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747231346151</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Add comprehensive big match analysis and prediction system&#10;&#10;This commit introduces a detailed system for collecting, preparing, and analyzing virtual match data. Includes data scraping, prediction model integration, Bayesian and Markov probability calculations, betting recommendations, and visualization tools.">
+      <option name="closed" value="true" />
+      <created>1747237545360</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1747237545360</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,10 +187,13 @@
     <MESSAGE value="Refactor data collection and processing in parsing scripts&#10;&#10;Optimized data collection logic by improving date handling and error management in virtual match data retrieval. Streamlined JSON decoding, enhanced compatibility with Brotli/Gzip encoding, and restructured data merging and deduplication for efficiency. Simplified notebook functionality and improved maintainability." />
     <MESSAGE value="Refactor analytics notebook to optimize draw analysis&#10;&#10;Simplified and reorganized code for analyzing draw statistics in matches. Added new visualizations, advanced metrics, and a modular betting strategy simulation to enhance usability and maintainability." />
     <MESSAGE value="Improve analytics with advanced draw distribution analysis.&#10;&#10;Introduced optimized strategies, draw distance analysis, and enhanced heuristic rules for 'odds_1' values. Refactored logic for better prediction of draws, data export, and visualization." />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve analytics with advanced draw distribution analysis.&#10;&#10;Introduced optimized strategies, draw distance analysis, and enhanced heuristic rules for 'odds_1' values. Refactored logic for better prediction of draws, data export, and visualization." />
+    <MESSAGE value="Refactor and enhance analytics in Jupyter notebook&#10;&#10;Reorganized the notebook structure and implemented multiple analyses on match data. Added functionality to calculate draw distributions, visualize data, and simulate a betting strategy with detailed results and metrics." />
+    <MESSAGE value="Add comprehensive big match analysis and prediction system&#10;&#10;This commit introduces a detailed system for collecting, preparing, and analyzing virtual match data. Includes data scraping, prediction model integration, Bayesian and Markov probability calculations, betting recommendations, and visualization tools." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add comprehensive big match analysis and prediction system&#10;&#10;This commit introduces a detailed system for collecting, preparing, and analyzing virtual match data. Includes data scraping, prediction model integration, Bayesian and Markov probability calculations, betting recommendations, and visualization tools." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/eurobet_virtual_2$parsing.coverage" NAME="parsing Coverage Results" MODIFIED="1747236793045" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/eurobet_virtual_2$catboost_model.coverage" NAME="catboost_model Coverage Results" MODIFIED="1747230056502" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/eurobet_virtual_2$parsing.coverage" NAME="parsing Coverage Results" MODIFIED="1747252936419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/eurobet_virtual_2$parging_test.coverage" NAME="parging_test Coverage Results" MODIFIED="1747287068694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/eurobet_virtual_2$catboost_model.coverage" NAME="catboost_model Coverage Results" MODIFIED="1747287949929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
